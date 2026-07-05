@@ -1,11 +1,10 @@
-site_name: "Sua Disciplina - UNA"
-# Troque para a URL do seu Pages: https://SEU_USUARIO.github.io/SEU_REPOSITORIO/
-site_url: https://SEU_USUARIO.github.io/SEU_REPOSITORIO/
-site_author: Seu Nome
+site_name: "Matemática Computacional Aplicada — UNA"
+site_url: https://danhpaiva.github.io/una-mca-mkdocs-202602/
+site_author: danhpaiva
 
-# Link para o repositório e botão "editar esta página" (troque pelos seus dados)
-repo_url: https://github.com/SEU_USUARIO/SEU_REPOSITORIO
-repo_name: SEU_USUARIO/SEU_REPOSITORIO
+# Link para o repositório e botão "editar esta página"
+repo_url: https://github.com/danhpaiva/una-mca-mkdocs-202602
+repo_name: danhpaiva/una-mca-mkdocs-202602
 edit_uri: edit/main/docs/
 
 theme:
@@ -57,10 +56,33 @@ nav:
   - Guia do Professor: setup.md
   - 🧰 Ferramentas: ferramentas.md
   - 📖 Aulas:
-      - Introdução: aulas/01-introducao.md
-      - CI/CD com GitHub Actions: aulas/02-cicd.md
-  - 📝 Atividades:
-      - Projeto 01: trabalhos/projeto-01.md
+      - "01. Conjuntos: fundamentos e operações": aulas/01-aula.md
+      - "02. Relações": aulas/02-aula.md
+      - "03. Funções": aulas/03-aula.md
+      - "04. Lógica proposicional e tabelas-verdade": aulas/04-aula.md
+      - "05. Equivalências lógicas e argumentos": aulas/05-aula.md
+      - "06. Álgebra booleana": aulas/06-aula.md
+      - "07. Circuitos digitais e aplicações": aulas/07-aula.md
+      - "08. Princípios de contagem": aulas/08-aula.md
+      - "09. Combinatória": aulas/09-aula.md
+      - "10. Matrizes": aulas/10-aula.md
+      - "11. Grafos e árvores": aulas/11-aula.md
+      - "12. Indução matemática e recorrência": aulas/12-aula.md
+  - 📝 Listas:
+      - "Lista 01 — Conjuntos": listas/01-lista.md
+      - "Lista 02 — Relações": listas/02-lista.md
+      - "Lista 03 — Funções": listas/03-lista.md
+      - "Lista 04 — Lógica proposicional": listas/04-lista.md
+      - "Lista 05 — Equivalências e argumentos": listas/05-lista.md
+      - "Lista 06 — Álgebra booleana": listas/06-lista.md
+      - "Lista 07 — Circuitos digitais": listas/07-lista.md
+      - "Lista 08 — Contagem": listas/08-lista.md
+      - "Lista 09 — Combinatória": listas/09-lista.md
+      - "Lista 10 — Matrizes": listas/10-lista.md
+      - "Lista 11 — Grafos e árvores": listas/11-lista.md
+      - "Lista 12 — Indução e recorrência": listas/12-lista.md
+  # - 📌 Projeto:
+  #     - Projeto Final: trabalhos/projeto-final.md
 
 # Rascunhos ficam fora do site publicado (continuam versionados no repo)
 exclude_docs: |
@@ -73,10 +95,29 @@ plugins:
 
 markdown_extensions:
   - admonition
+  - attr_list
+  - md_in_html
+  - footnotes
+  - tables
   - pymdownx.details
-  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
+  - pymdownx.arithmatex:
+      generic: true
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
 # Para habilitar estatísticas, crie um ID no Google Analytics e preencha abaixo:
 # extra:
 #   analytics:

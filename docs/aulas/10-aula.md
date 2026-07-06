@@ -38,12 +38,33 @@ $$c_{ij} = \sum_{k=1}^{n} a_{ik}\, b_{kj}$$
     Em geral $A \cdot B \neq B \cdot A$. Além disso, a ordem das dimensões
     importa: $(m \times n)\cdot(n \times p) = (m \times p)$.
 
+!!! example "Produto passo a passo (e AB ≠ BA)"
+    Com $A = \begin{bmatrix}1&2\\3&4\end{bmatrix}$ e $B = \begin{bmatrix}5&6\\7&8\end{bmatrix}$:
+
+    $$c_{11} = 1\cdot 5 + 2\cdot 7 = 19 \qquad c_{12} = 1\cdot 6 + 2\cdot 8 = 22$$
+    $$A\cdot B = \begin{bmatrix}19&22\\43&50\end{bmatrix}
+    \qquad
+    B\cdot A = \begin{bmatrix}23&34\\31&46\end{bmatrix}$$
+
+    Diferentes! Cada elemento $c_{ij}$ é "linha $i$ de $A$ vezes coluna $j$ de $B$".
+
 ## 🆔 Matriz identidade
 
 A identidade $I$ tem 1 na diagonal e 0 no resto; funciona como o "1" da
 multiplicação: $A \cdot I = A$.
 
 $$I_3 = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}$$
+
+!!! tip "Testando se uma matriz é a identidade"
+    $M$ é identidade se for **quadrada** e $M_{ij} = 1$ quando $i = j$ e $0$ caso
+    contrário. É a condição que a função `eh_identidade` do desafio deve verificar.
+
+### Transposta na prática
+
+$(A^{T})_{ij} = a_{ji}$: a linha $i$ vira a coluna $i$. Uma matriz $2 \times 3$
+transposta vira $3 \times 2$:
+
+$$\begin{bmatrix}1&2&3\\4&5&6\end{bmatrix}^{T} = \begin{bmatrix}1&4\\2&5\\3&6\end{bmatrix}$$
 
 ## 🐍 Matrizes em Python
 
@@ -96,6 +117,22 @@ print(multiplica(A, B))   # [[19, 22], [43, 50]]
 ??? abstract "Exercício 4 — Desafio"
     Implemente `transposta(M)` e `eh_identidade(M)` sem NumPy. Teste com matrizes
     $3 \times 3$.
+
+## 📚 Referências
+
+**Livros (teoria)**
+
+- ROSEN, K. H. *Matemática Discreta e suas Aplicações*. 7. ed. AMGH/McGraw-Hill —
+  seção sobre **matrizes** (operações e aplicações).
+- GERSTING, J. L. *Fundamentos Matemáticos para a Ciência da Computação*. 7. ed.
+  LTC — cap. **Relações, Funções e Matrizes**.
+- BOLDRINI, J. L. et al. *Álgebra Linear*. Harbra — cap. **Matrizes e operações**.
+- STEINBRUCH, A.; WINTERLE, P. *Álgebra Linear*. Pearson — **matrizes e produto matricial**.
+
+**Documentação e prática (Python)**
+
+- NumPy — guia do usuário (arrays e `@`): <https://numpy.org/doc/stable/user/absolute_beginners.html>
+- NumPy — `numpy.matmul` / operador `@`: <https://numpy.org/doc/stable/reference/generated/numpy.matmul.html>
 
 !!! tip "Próxima Parada 🚏"
     Vá para a **[Lista 10 — Matrizes](../listas/10-lista.md)**. Usaremos matrizes

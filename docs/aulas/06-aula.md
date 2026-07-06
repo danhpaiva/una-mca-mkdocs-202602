@@ -40,6 +40,12 @@ A **álgebra booleana** trabalha com apenas dois valores — $0$ (falso) e $1$
     \qquad
     \overline{x \cdot y} = \overline{x} + \overline{y}$$
 
+!!! note "Princípio da dualidade"
+    Toda identidade booleana continua válida se **trocarmos** $\cdot \leftrightarrow +$
+    e $0 \leftrightarrow 1$ ao mesmo tempo. Por isso os axiomas aparecem sempre aos
+    pares: a "dual" de $x + 0 = x$ é $x \cdot 1 = x$. Isso reduz pela metade o que
+    você precisa memorizar.
+
 ## 🧮 Funções booleanas
 
 Uma **função booleana** mapeia combinações de bits em $\{0,1\}$. Ela pode ser
@@ -54,6 +60,21 @@ Exemplo: $f(x, y) = x \cdot \overline{y} + \overline{x} \cdot y$ (isto é o **XO
 | 1 | 0 | 1 |
 | 1 | 1 | 0 |
 
+### Forma normal: soma de produtos (SOP)
+
+Toda função booleana pode ser escrita a partir de sua tabela-verdade. Um
+**mintermo** é um produto (AND) que vale $1$ em **exatamente uma** linha, usando a
+variável direta quando ela é $1$ e complementada quando é $0$.
+
+A **soma de produtos** (SOP, do inglês *Sum of Products*) é a soma (OR) dos
+mintermos das linhas em que $f = 1$. Para o XOR acima, $f = 1$ nas linhas
+$(x,y) = (0,1)$ e $(1,0)$:
+
+$$f(x,y) = \underbrace{\overline{x}\,y}_{(0,1)} + \underbrace{x\,\overline{y}}_{(1,0)}$$
+
+É exatamente a expressão do XOR. Essa é a "receita" para ir da **especificação**
+(tabela) direto a uma **expressão** — que depois pode ser simplificada.
+
 ## ✂️ Simplificação
 
 Simplificar reduz o número de operações (⇒ circuitos menores e mais baratos).
@@ -62,6 +83,11 @@ Exemplo aplicando **absorção**:
 $$f = x + \overline{x}y = x + y$$
 
 *Passo a passo:* $x + \overline{x}y = (x + \overline{x})(x + y) = 1 \cdot (x + y) = x + y$.
+
+!!! example "Fatorando um complemento (prévia do exercício 2)"
+    $$xy + x\overline{y} = x\,(y + \overline{y}) = x \cdot 1 = x$$
+    Fatoramos $x$, aplicamos $y + \overline{y} = 1$ e a identidade $x \cdot 1 = x$.
+    Uma expressão com 2 produtos virou um único literal.
 
 ## 🐍 Álgebra booleana em Python
 
@@ -107,6 +133,24 @@ for x in (0, 1):
 ??? abstract "Exercício 4 — Desafio"
     Implemente `NAND` e `NOR` em Python e mostre, com `equivalentes`, que
     $\overline{x \cdot y} = \overline{x} + \overline{y}$.
+
+## 📚 Referências
+
+**Livros (teoria)**
+
+- ROSEN, K. H. *Matemática Discreta e suas Aplicações*. 7. ed. AMGH/McGraw-Hill —
+  cap. **Álgebra Booleana** (funções booleanas, formas normais, simplificação).
+- GERSTING, J. L. *Fundamentos Matemáticos para a Ciência da Computação*. 7. ed.
+  LTC — cap. **Álgebra de Boole e Computação**.
+- IDOETA, I. V.; CAPUANO, F. G. *Elementos de Eletrônica Digital*. Érica — cap.
+  **Álgebra de Boole e simplificação** (com mapas de Karnaugh).
+- TOCCI, R. J.; WIDMER, N. S.; MOSS, G. L. *Sistemas Digitais: princípios e
+  aplicações*. Pearson — **álgebra booleana aplicada a circuitos**.
+
+**Documentação e prática (Python)**
+
+- Python — operadores bit a bit `&`, `|`, `~`, `^`: <https://docs.python.org/3/reference/expressions.html#binary-bitwise-operations>
+- Python — tipo `bool` e inteiros: <https://docs.python.org/3/library/stdtypes.html#boolean-type-bool>
 
 !!! tip "Próxima Parada 🚏"
     Pratique na **[Lista 06 — Álgebra booleana](../listas/06-lista.md)**. Na

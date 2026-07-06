@@ -39,6 +39,23 @@ graph LR
 
     Que é exatamente a fórmula com $n = k+1$. ∎
 
+!!! example "Outro exemplo: soma dos ímpares"
+    **Afirmação:** $1 + 3 + 5 + \dots + (2n-1) = n^2$.
+
+    - *Base* ($n=1$): $1 = 1^2$. ✅
+    - *Passo:* supondo $\sum_{i=1}^{k}(2i-1) = k^2$, some o próximo ímpar $2(k+1)-1 = 2k+1$:
+      $$k^2 + (2k+1) = (k+1)^2 \quad ∎$$
+
+!!! note "Indução forte"
+    Às vezes o passo precisa supor a propriedade para **todos** os valores até $k$
+    (não só para $k$). Isso é a **indução forte** — útil para recorrências que
+    olham vários termos anteriores, como Fibonacci. A lógica é a mesma escada, só
+    com um apoio mais largo.
+
+!!! warning "Desigualdades também se provam por indução"
+    Para mostrar $2^n > n$ (com $n \ge 1$): base $2^1 = 2 > 1$; no passo, de
+    $2^k > k$ segue $2^{k+1} = 2\cdot 2^k > 2k \ge k+1$ para $k \ge 1$. ∎
+
 ## 🔁 Relações de recorrência
 
 Uma **recorrência** define um termo em função dos anteriores. Exemplos:
@@ -78,6 +95,22 @@ print([fib(i) for i in range(8)])   # [0, 1, 1, 2, 3, 5, 8, 13]
     indução é o caso base do código; o passo indutivo é a chamada recursiva. Provar
     por indução é essencialmente provar que seu algoritmo recursivo está correto.
 
+!!! tip "Fibonacci ingênuo é lento — use memoização"
+    `fib(n)` recalcula os mesmos valores milhões de vezes (custo exponencial).
+    Guardar resultados já calculados (**memoização**) derruba o custo para linear:
+
+    ```python
+    from functools import lru_cache
+
+    @lru_cache(maxsize=None)
+    def fib_memo(n):
+        if n < 2:
+            return n
+        return fib_memo(n - 1) + fib_memo(n - 2)
+
+    print(fib_memo(35))   # instantâneo, ao contrário do fib ingênuo
+    ```
+
 ## 🌍 Onde isso aparece
 
 - **Correção de algoritmos:** provar que um algoritmo recursivo dá o resultado certo.
@@ -99,6 +132,26 @@ print([fib(i) for i in range(8)])   # [0, 1, 1, 2, 3, 5, 8, 13]
 ??? abstract "Exercício 4 — Desafio"
     A versão recursiva ingênua de `fib` é lenta. Implemente `fib_memo` com
     memoização (`dict` ou `functools.lru_cache`) e compare os tempos para `fib(35)`.
+    *Dica:* use `time.perf_counter()` para cronometrar.
+
+## 📚 Referências
+
+**Livros (teoria)**
+
+- ROSEN, K. H. *Matemática Discreta e suas Aplicações*. 7. ed. AMGH/McGraw-Hill —
+  caps. **Indução e Recursão** e **Relações de Recorrência**.
+- GERSTING, J. L. *Fundamentos Matemáticos para a Ciência da Computação*. 7. ed.
+  LTC — cap. **Demonstrações, Recursão e Análise de Algoritmos**.
+- GRAHAM, R.; KNUTH, D.; PATASHNIK, O. *Matemática Concreta*. LTC — capítulo sobre
+  **recorrências** (referência avançada).
+- CORMEN, T. H. et al. *Algoritmos: Teoria e Prática* (CLRS). Elsevier —
+  **indução, recorrências e o teorema mestre**.
+
+**Documentação e prática (Python)**
+
+- Python — `functools.lru_cache` (memoização): <https://docs.python.org/3/library/functools.html#functools.lru_cache>
+- Python — limite de recursão (`sys.setrecursionlimit`): <https://docs.python.org/3/library/sys.html#sys.setrecursionlimit>
+- Python — `time.perf_counter` (medir tempo): <https://docs.python.org/3/library/time.html#time.perf_counter>
 
 !!! tip "Próxima Parada 🚏 — Chegamos ao fim! 🎉"
     Feche o curso com a **[Lista 12 — Indução e recorrência](../listas/12-lista.md)**.

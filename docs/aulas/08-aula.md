@@ -46,6 +46,19 @@ $$\lvert A \cup B \cup C \rvert = \lvert A\rvert+\lvert B\rvert+\lvert C\rvert
 - \lvert A\cap B\rvert - \lvert A\cap C\rvert - \lvert B\cap C\rvert
 + \lvert A\cap B\cap C\rvert$$
 
+!!! note "\"Pelo menos um\" vs. \"exatamente um\""
+    - **Pelo menos um** dos dois → $\lvert A \cup B \rvert$.
+    - **Exatamente um** (num só dos dois) → tira a interseção **duas vezes**:
+      $$\lvert A \rvert + \lvert B \rvert - 2\lvert A \cap B \rvert$$
+    - **Só em $A$** (em $A$ e não em $B$) → $\lvert A \rvert - \lvert A \cap B \rvert$.
+
+!!! example "Estágio e monitoria"
+    Numa turma, 20 fazem estágio ($A$), 12 são monitores ($B$) e 5 fazem os dois:
+
+    - Pelo menos uma: $20 + 12 - 5 = 27$.
+    - Exatamente uma: $20 + 12 - 2\cdot 5 = 22$.
+    - Só estágio: $20 - 5 = 15$; só monitoria: $12 - 5 = 7$ (e $15 + 7 = 22$ ✅).
+
 ## 🕳️ Casa dos pombos (Pigeonhole)
 
 !!! note "Princípio da casa dos pombos"
@@ -55,6 +68,12 @@ $$\lvert A \cup B \cup C \rvert = \lvert A\rvert+\lvert B\rvert+\lvert C\rvert
 > Em 13 pessoas, pelo menos duas nascem no mesmo mês (13 pombos, 12 casas).
 
 Versão geral: alguma casa tem pelo menos $\lceil n/k \rceil$ pombos.
+
+!!! tip "Como aplicar"
+    Identifique quem são os **pombos** (os objetos) e quais são as **casas** (as
+    categorias). Se há mais pombos que casas, a colisão é inevitável. Ex.: 8
+    pessoas (pombos) e 7 dias da semana (casas) → pelo menos duas fazem aniversário
+    no mesmo dia da semana.
 
 ## 🐍 Contando em Python
 
@@ -97,6 +116,24 @@ print(pelo_menos_um, por_inc_exc)   # 7 7
 ??? abstract "Exercício 4 — Desafio"
     Escreva `conta_senhas(tam, alfabeto)` que devolva o número de senhas de dado
     tamanho e confirme contra `len(list(product(...)))` para casos pequenos.
+
+## 📚 Referências
+
+**Livros (teoria)**
+
+- ROSEN, K. H. *Matemática Discreta e suas Aplicações*. 7. ed. AMGH/McGraw-Hill —
+  cap. **Contagem** (regras da soma/produto, inclusão-exclusão, casa dos pombos).
+- MORGADO, A. C. et al. *Análise Combinatória e Probabilidade*. SBM (Coleção do
+  Professor de Matemática) — **princípios de contagem**.
+- SANTOS, J. P. O.; MELLO, M. P.; MURARI, I. T. C. *Introdução à Análise
+  Combinatória*. Ciência Moderna — fundamentos de **contagem**.
+- GERSTING, J. L. *Fundamentos Matemáticos para a Ciência da Computação*. 7. ed.
+  LTC — cap. **Conjuntos e Combinatória**.
+
+**Documentação e prática (Python)**
+
+- Python — `itertools.product`: <https://docs.python.org/3/library/itertools.html#itertools.product>
+- Python — `math.ceil` (casa dos pombos): <https://docs.python.org/3/library/math.html#math.ceil>
 
 !!! tip "Próxima Parada 🚏"
     Resolva a **[Lista 08 — Contagem](../listas/08-lista.md)**. A seguir refinamos

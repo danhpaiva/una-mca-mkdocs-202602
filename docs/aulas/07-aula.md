@@ -23,6 +23,20 @@ Cada operação booleana vira uma **porta** física:
     Qualquer circuito pode ser construído **só com portas NAND** (ou só NOR).
     Isso simplifica a fabricação de chips.
 
+### Por que NAND é universal
+
+Se conseguimos montar NOT, AND e OR usando **apenas** NAND, então montamos
+qualquer função booleana. Escrevendo $\text{NAND}(x,y) = \overline{x \cdot y}$:
+
+| Porta | Construção com NAND | Ideia |
+| :--- | :--- | :--- |
+| NOT | $\overline{x} = \text{NAND}(x, x)$ | $\overline{x \cdot x} = \overline{x}$ |
+| AND | $x \cdot y = \text{NAND}(\text{NAND}(x,y),\ \text{NAND}(x,y))$ | NAND seguido de NOT |
+| OR | $x + y = \text{NAND}(\overline{x}, \overline{y})$ | De Morgan: $\overline{\overline{x}\cdot\overline{y}} = x+y$ |
+
+O mesmo vale para NOR. Por isso essas duas portas são chamadas de **portas
+universais**.
+
 ## 🛠️ Da lógica ao circuito
 
 Um circuito combinacional implementa uma **função booleana**. Fluxo de projeto:
@@ -68,6 +82,25 @@ C_{out} = AB + C_{in}(A \oplus B)$$
 
 Encadeando full adders, construímos somadores de $n$ bits — a base da **ULA**
 (unidade lógica e aritmética) de qualquer processador.
+
+### Somador com propagação de "vai-um" (ripple carry)
+
+Para somar dois números de $n$ bits, ligamos $n$ full adders em cadeia: o
+$C_{out}$ de cada estágio vira o $C_{in}$ do próximo. O bit mais baixo (LSB) usa
+um $C_{in} = 0$.
+
+```mermaid
+graph LR
+    FA0["FA bit0"] -->|C1| FA1["FA bit1"]
+    FA1 -->|C2| FA2["FA bit2"]
+    FA2 -->|C3| FA3["FA bit3"]
+    FA3 -->|Cout| Fim(("carry final"))
+```
+
+!!! example "Somando 0110₂ + 0101₂"
+    $0110_2 = 6$ e $0101_2 = 5$. Bit a bit (do LSB para o MSB), o carry vai
+    "subindo" e o resultado é $1011_2 = 11$, com carry final $0$. Se o carry final
+    fosse $1$, indicaria **overflow** para 4 bits.
 
 ## 🐍 Simulando circuitos em Python
 
@@ -118,6 +151,24 @@ for a in (0, 1):
 ??? abstract "Exercício 4 — Desafio"
     Use `soma_4bits` para somar $0110_2$ e $0101_2$. Confira o resultado em decimal
     e explique o carry final.
+
+## 📚 Referências
+
+**Livros (teoria)**
+
+- TOCCI, R. J.; WIDMER, N. S.; MOSS, G. L. *Sistemas Digitais: princípios e
+  aplicações*. Pearson — **portas lógicas, somadores e circuitos combinacionais**.
+- IDOETA, I. V.; CAPUANO, F. G. *Elementos de Eletrônica Digital*. Érica — cap.
+  **Circuitos combinacionais** (meio somador e somador completo).
+- ROSEN, K. H. *Matemática Discreta e suas Aplicações*. 7. ed. AMGH/McGraw-Hill —
+  cap. **Álgebra Booleana** (portas e projeto de circuitos).
+- NISAN, N.; SCHOCKEN, S. *The Elements of Computing Systems* (projeto Nand2Tetris)
+  — construindo um computador **a partir de portas NAND**: <https://www.nand2tetris.org/>
+
+**Documentação e prática (Python)**
+
+- Python — operadores bit a bit (`^`, `&`, `|`): <https://docs.python.org/3/reference/expressions.html#binary-bitwise-operations>
+- Python — `zip` (encadear listas de bits): <https://docs.python.org/3/library/functions.html#zip>
 
 !!! tip "Próxima Parada 🚏"
     Vá para a **[Lista 07 — Circuitos digitais](../listas/07-lista.md)**. Trocamos

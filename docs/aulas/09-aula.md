@@ -35,6 +35,21 @@ A pergunta-chave é sempre: **a ordem importa?**
     Arranjo = combinação **vezes** as ordenações internas: $A(n,k) = C(n,k)\cdot k!$.
     Se trocar a ordem gera um caso **novo**, é arranjo; se não, é combinação.
 
+### E quando há repetição?
+
+- **Sequências com repetição permitida** (ex.: senhas com dígitos que podem
+  repetir): pelo princípio multiplicativo, são $n^k$ (visto na
+  [Aula 08](08-aula.md)).
+- **Permutação com elementos repetidos** (anagramas): se um objeto se repete, as
+  trocas entre iguais não contam. As permutações de $n$ objetos com grupos de
+  tamanhos $n_1, n_2, \dots$ são
+  $$\dfrac{n!}{n_1!\,n_2!\cdots}$$
+  Ex.: anagramas de "ARARA" (3 A, 2 R): $\dfrac{5!}{3!\,2!} = 10$.
+
+!!! warning "\"Sem repetição\" costuma ser arranjo"
+    Uma senha de 4 dígitos **sem repetir** dígito é um **arranjo** $A(10,4)$, não
+    uma combinação — porque a ordem dos dígitos importa (`1234` ≠ `4321`).
+
 ## 🔺 Triângulo de Pascal
 
 Os coeficientes binomiais formam o triângulo, onde cada número é a soma dos dois
@@ -55,6 +70,12 @@ $$\binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k}$$
 E o **binômio de Newton**:
 
 $$(a + b)^n = \sum_{k=0}^{n} \binom{n}{k} a^{n-k} b^{k}$$
+
+!!! example "Expandindo $(x + y)^4$"
+    Os coeficientes são a linha $n=4$ do triângulo: $1, 4, 6, 4, 1$.
+    $$(x+y)^4 = x^4 + 4x^3y + 6x^2y^2 + 4xy^3 + y^4$$
+    Repare que os expoentes de $x$ **caem** de 4 a 0 enquanto os de $y$ **sobem**,
+    e sempre somam 4.
 
 ## 🐍 Combinatória em Python
 
@@ -101,6 +122,23 @@ print(list(combinations([1, 2, 3, 4], 2)))  # 6 pares sem ordem
 ??? abstract "Exercício 4 — Desafio"
     Implemente `combinacao(n, k)` **sem** usar `math.comb`, apenas com a relação
     de Pascal (recursão ou tabela). Compare com `math.comb`.
+
+## 📚 Referências
+
+**Livros (teoria)**
+
+- MORGADO, A. C. et al. *Análise Combinatória e Probabilidade*. SBM — referência
+  clássica de **permutações, arranjos e combinações**.
+- ROSEN, K. H. *Matemática Discreta e suas Aplicações*. 7. ed. AMGH/McGraw-Hill —
+  cap. **Contagem** (combinações, permutações, binômio de Newton).
+- HAZZAN, S. *Fundamentos de Matemática Elementar, vol. 5: Combinatória e
+  Probabilidade*. Atual — muitos exercícios resolvidos.
+- SANTOS, J. P. O. et al. *Introdução à Análise Combinatória*. Ciência Moderna.
+
+**Documentação e prática (Python)**
+
+- Python — `math.factorial`, `math.perm`, `math.comb`: <https://docs.python.org/3/library/math.html#number-theoretic-and-representation-functions>
+- Python — `itertools.permutations` / `combinations`: <https://docs.python.org/3/library/itertools.html#itertools.permutations>
 
 !!! tip "Próxima Parada 🚏"
     Pratique na **[Lista 09 — Combinatória](../listas/09-lista.md)**. Agora

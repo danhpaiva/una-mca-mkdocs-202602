@@ -27,6 +27,30 @@ Representamos proposições por letras: $p, q, r, \dots$
 | Condicional | $p \to q$ | implica | "se $p$ então $q$" |
 | Bicondicional | $p \leftrightarrow q$ | sse | "$p$ se e somente se $q$" |
 
+### Precedência dos conectivos
+
+Como na aritmética ($\times$ antes de $+$), os conectivos têm uma ordem. Do que
+"amarra mais forte" para o mais fraco:
+
+$$\neg \ \succ\ \wedge \ \succ\ \vee \ \succ\ \to \ \succ\ \leftrightarrow$$
+
+Assim, $\neg p \vee q \wedge r$ lê-se $(\neg p) \vee (q \wedge r)$. Na dúvida,
+**use parênteses** — eles nunca atrapalham.
+
+### Traduzindo do português para a lógica
+
+O passo mais importante é isolar as **proposições atômicas** (as afirmações que
+não dá para quebrar) e dar uma letra a cada uma.
+
+!!! example "Tradução"
+    *"Se estudo **e** durmo bem, então passo na prova."*
+
+    - $p$: "estudo"; $q$: "durmo bem"; $r$: "passo na prova".
+    - Fórmula: $(p \wedge q) \to r$.
+
+    Palavras como "e" → $\wedge$, "ou" → $\vee$, "não/nunca" → $\neg$,
+    "se… então" → $\to$, "se e somente se" → $\leftrightarrow$.
+
 ## 📊 Tabelas-verdade
 
 Uma tabela-verdade lista **todas** as combinações de valores das proposições.
@@ -53,11 +77,33 @@ Com $n$ variáveis há $2^n$ linhas.
     só é mentira se choveu **e** você **não** levou. Se não choveu, a promessa
     continua válida (verdadeira por vacuidade).
 
+### Construindo uma tabela passo a passo
+
+Para uma fórmula composta, crie **colunas intermediárias** e vá combinando.
+Exemplo com $\neg(p \wedge q)$:
+
+| $p$ | $q$ | $p \wedge q$ | $\neg(p \wedge q)$ |
+| :-: | :-: | :-: | :-: |
+| V | V | V | F |
+| V | F | F | V |
+| F | V | F | V |
+| F | F | F | V |
+
+Primeiro preenchemos $p \wedge q$; depois negamos essa coluna. Repare que o
+resultado é igual a $\neg p \vee \neg q$ — uma **Lei de De Morgan**, que veremos
+formalmente na [Aula 05](05-aula.md).
+
 ## 🏛️ Classificando fórmulas
 
 - **Tautologia**: verdadeira em **todas** as linhas. Ex.: $p \vee \neg p$.
 - **Contradição**: falsa em todas. Ex.: $p \wedge \neg p$.
-- **Contingência**: depende dos valores.
+- **Contingência**: depende dos valores (às vezes V, às vezes F).
+
+!!! example "Classificando na prática"
+    - $p \to (p \vee q)$: seja $p$ V ou F, o resultado é sempre V → **tautologia**.
+    - $p \wedge \neg p$: nunca pode ser V (p e não-p ao mesmo tempo) → **contradição**.
+    - $(p \to q) \vee p$: depende — é F, por exemplo, quando... nunca? Monte a
+      tabela e descubra se é tautologia ou contingência. 😉
 
 ## 🐍 Lógica em Python
 
@@ -104,6 +150,24 @@ for p in (True, False):
 ??? abstract "Exercício 4 — Desafio"
     Escreva uma função que **imprima** a tabela-verdade de qualquer fórmula com 3
     variáveis passada como `lambda`. Use `itertools.product`.
+
+## 📚 Referências
+
+**Livros (teoria)**
+
+- ROSEN, K. H. *Matemática Discreta e suas Aplicações*. 7. ed. AMGH/McGraw-Hill —
+  cap. **Fundamentos: Lógica e Demonstrações** (proposições, conectivos, tabelas).
+- GERSTING, J. L. *Fundamentos Matemáticos para a Ciência da Computação*. 7. ed.
+  LTC — cap. **Lógica Formal**.
+- MENEZES, P. B. *Matemática Discreta para Computação e Informática*. Bookman —
+  cap. **Lógica Proposicional**.
+- HUTH, M.; RYAN, M. *Logic in Computer Science*. Cambridge — introdução à
+  **lógica proposicional** (referência avançada, em inglês).
+
+**Documentação e prática (Python)**
+
+- Python — operadores booleanos `and`, `or`, `not`: <https://docs.python.org/3/reference/expressions.html#boolean-operations>
+- Python — `itertools.product` (gerar combinações V/F): <https://docs.python.org/3/library/itertools.html#itertools.product>
 
 !!! tip "Próxima Parada 🚏"
     Vá para a **[Lista 04 — Lógica proposicional](../listas/04-lista.md)**. Na

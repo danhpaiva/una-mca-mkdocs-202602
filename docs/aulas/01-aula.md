@@ -40,6 +40,21 @@ Escrevemos conjuntos de duas formas:
 | $\varnothing$ | conjunto vazio | $\{\,\}$ |
 | $\mathcal{U}$ | conjunto universo | contexto do problema |
 | $\lvert A \rvert$ | cardinalidade (nº de elementos) | $\lvert\{1,2,3\}\rvert = 3$ |
+| $\subset$ | subconjunto **próprio** | $\{1,2\} \subset \{1,2,3\}$ |
+
+!!! note "Subconjunto vs. subconjunto próprio"
+    $A \subseteq B$ admite que $A$ seja **igual** a $B$. Já $A \subset B$ (próprio)
+    exige que $B$ tenha **pelo menos um** elemento a mais. Todo conjunto é
+    subconjunto de si mesmo ($A \subseteq A$) e o vazio é subconjunto de
+    **qualquer** conjunto ($\varnothing \subseteq A$).
+
+### Conjunto das partes (conjunto potência)
+
+O **conjunto das partes** $\mathcal{P}(A)$ é o conjunto de **todos** os
+subconjuntos de $A$ — incluindo $\varnothing$ e o próprio $A$. Se $A$ tem $n$
+elementos, então $\mathcal{P}(A)$ tem $2^n$ elementos.
+
+$$A = \{1, 2\} \ \Rightarrow\ \mathcal{P}(A) = \big\{\ \varnothing,\ \{1\},\ \{2\},\ \{1,2\}\ \big\}, \quad \lvert \mathcal{P}(A) \rvert = 2^2 = 4$$
 
 ## ⚙️ Operações com conjuntos
 
@@ -57,6 +72,19 @@ Considere $A = \{1,2,3,4\}$ e $B = \{3,4,5,6\}$, com universo $\mathcal{U} = \{1
 === "Complemento"
     O que **não** está em $A$ (dentro de $\mathcal{U}$):
     $\overline{A} = \{5,6,7,8,9\}$.
+
+=== "Diferença simétrica △"
+    O que está em **exatamente um** dos dois (nunca nos dois):
+    $A \,\triangle\, B = (A - B) \cup (B - A) = \{1,2,5,6\}$.
+
+    Equivale a $(A \cup B) - (A \cap B)$.
+
+!!! note "Cardinalidade da união (prévia da contagem)"
+    Quando há sobreposição, somar $\lvert A\rvert$ e $\lvert B\rvert$ conta a
+    interseção **duas vezes**. Por isso:
+    $$\lvert A \cup B \rvert = \lvert A \rvert + \lvert B \rvert - \lvert A \cap B \rvert$$
+    Essa é a versão para dois conjuntos do **princípio da inclusão-exclusão**,
+    que retomaremos na [Aula 08](08-aula.md).
 
 ### Visualizando com diagramas de Venn
 
@@ -81,10 +109,18 @@ print(A & B)   # Interseção   -> {3, 4}
 print(A - B)   # Diferença    -> {1, 2}
 print(U - A)   # Complemento  -> {5, 6, 7, 8, 9}
 
+print(A ^ B)   # Dif. simétrica -> {1, 2, 5, 6}
+
 print(2 in A)          # Pertinência -> True
-print({1, 2} <= A)     # Subconjunto -> True
+print({1, 2} <= A)     # Subconjunto  -> True
+print({1, 2} < A)      # Subconjunto próprio -> True
 print(len(A))          # Cardinalidade -> 4
 ```
+
+!!! warning "`<=` é subconjunto, não é ordem numérica"
+    Entre conjuntos, `<=` significa "está contido em" ($\subseteq$) e `<`
+    significa "está contido propriamente em" ($\subset$). Não confunda com a
+    comparação de números.
 
 !!! tip "Conjunto por compreensão em Python"
     A notação por compreensão da matemática tem par direto no código:
@@ -94,13 +130,29 @@ print(len(A))          # Cardinalidade -> 4
     print(pares)  # {2, 4, 6, 8, 10}
     ```
 
-## 📐 Duas leis úteis
+## 📐 Leis úteis
 
-As **Leis de De Morgan** (que reveremos na lógica) já aparecem aqui:
+As operações de conjuntos seguem leis parecidas com as da aritmética. As mais
+usadas:
 
-$$\overline{A \cup B} = \overline{A} \cap \overline{B}
-\qquad
-\overline{A \cap B} = \overline{A} \cup \overline{B}$$
+| Lei | Forma |
+| :--- | :--- |
+| Comutativa | $A \cup B = B \cup A$; $\quad A \cap B = B \cap A$ |
+| Associativa | $(A \cup B) \cup C = A \cup (B \cup C)$ |
+| Distributiva | $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$ |
+| Identidade | $A \cup \varnothing = A$; $\quad A \cap \mathcal{U} = A$ |
+| **De Morgan** | $\overline{A \cup B} = \overline{A} \cap \overline{B}$ |
+| **De Morgan** | $\overline{A \cap B} = \overline{A} \cup \overline{B}$ |
+
+As **Leis de De Morgan** (que reveremos na [lógica](05-aula.md)) dizem que
+negar uma união vira interseção dos complementos, e vice-versa.
+
+!!! example "De Morgan passo a passo"
+    Com $\mathcal{U} = \{1,\dots,10\}$, $A=\{1,2,3,4\}$ e $B=\{3,4,5,6\}$:
+
+    - $A \cup B = \{1,2,3,4,5,6\}$, logo $\overline{A \cup B} = \{7,8,9,10\}$.
+    - $\overline{A} = \{5,6,7,8,9,10\}$ e $\overline{B} = \{1,2,7,8,9,10\}$.
+    - $\overline{A} \cap \overline{B} = \{7,8,9,10\}$. ✅ Coincide.
 
 ## 📝 Exercícios
 
@@ -120,6 +172,26 @@ $$\overline{A \cup B} = \overline{A} \cap \overline{B}
     Escreva uma função `simetrica(A, B)` que devolva a **diferença simétrica**
     (elementos que estão em exatamente um dos conjuntos) **sem** usar o operador
     `^`. Compare seu resultado com `A ^ B`.
+
+    *Dica:* $A \,\triangle\, B = (A - B) \cup (B - A)$.
+
+## 📚 Referências
+
+**Livros (teoria)**
+
+- ROSEN, K. H. *Matemática Discreta e suas Aplicações*. 7. ed. Porto Alegre:
+  AMGH/McGraw-Hill — cap. **Teoria dos Conjuntos**.
+- GERSTING, J. L. *Fundamentos Matemáticos para a Ciência da Computação*. 7. ed.
+  Rio de Janeiro: LTC — cap. **Conjuntos e Combinatória**.
+- SCHEINERMAN, E. R. *Matemática Discreta: uma introdução*. São Paulo: Cengage —
+  seção sobre **conjuntos e operações**.
+- LIPSCHUTZ, S.; LIPSON, M. *Matemática Discreta* (Coleção Schaum). Porto Alegre:
+  Bookman — cap. **Teoria dos Conjuntos** (muitos exercícios resolvidos).
+
+**Documentação e prática (Python)**
+
+- Python — *Sets* (tutorial oficial): <https://docs.python.org/3/tutorial/datastructures.html#sets>
+- Python — tipo `set` / `frozenset`: <https://docs.python.org/3/library/stdtypes.html#set-types-set-frozenset>
 
 !!! tip "Próxima Parada 🚏"
     Hora de praticar! Resolva a **[Lista 01 — Conjuntos](../listas/01-lista.md)**

@@ -81,6 +81,23 @@ nav:
       - "Lista 10 — Matrizes": listas/10-lista.md
       - "Lista 11 — Grafos e árvores": listas/11-lista.md
       - "Lista 12 — Indução e recorrência": listas/12-lista.md
+  - 🗓️ Turma 2026.2:
+      - Visão geral e cronograma: turma-202602/index.md
+      - "01. Introdução e apresentação da UC": turma-202602/01-aula.md
+      - "02. Busca Ativa — Início de Semestre": turma-202602/02-aula.md
+      - "03. Fundamentos de lógica": turma-202602/03-aula.md
+      - "04. Proposições lógicas e tabela-verdade": turma-202602/04-aula.md
+      - "05. Aplicação das tabelas-verdade em exercícios": turma-202602/05-aula.md
+      - "06. Álgebra Booleana e aplicações — Parte 1": turma-202602/06-aula.md
+      - "07. Álgebra Booleana e aplicações — Parte 2": turma-202602/07-aula.md
+      - "08. Atividades/prática — Parte 1": turma-202602/08-aula.md
+      - "09. Introdução a circuitos digitais": turma-202602/09-aula.md
+      - "10. Busca Ativa — Meio de Semestre": turma-202602/10-aula.md
+      - "11. Atividades/prática — Parte 2": turma-202602/11-aula.md
+      - "12. Introdução a Grafos": turma-202602/12-aula.md
+      - "13. Atividade avaliativa em grupo": turma-202602/13-aula.md
+      - "14. Estudo de Árvore": turma-202602/14-aula.md
+      - "15. Matemática em estruturas de dados e algoritmos": turma-202602/15-aula.md
   # - 📌 Projeto:
   #     - Projeto Final: trabalhos/projeto-final.md
 
